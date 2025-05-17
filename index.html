@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #3498db;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* ===== Reset & Base Styles ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
+                        Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: var(--dark-color);
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        /* ===== Utility Classes ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* ===== Navigation ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+        }
+
+        .nav-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            text-decoration: none;
+        }
+
+        .contact-btn {
+            background: none;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .contact-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero-section {
+            margin-top: 80px;
+            padding: 4rem 0;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+                .info-card:hover{
+             transform: translateY(-5px);   
+              transition: transform 0.3s ease;
+
+        }
+
+        .info-card:not(:hover){
+        transform: translateY(5px);   
+        transition: transform 0.3s ease;
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .profile-bio {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-tagline {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+.profile-card {
+    text-align: center;
+    padding: 100px;
+    position: relative;
+    z-index: 1;
+}
+
+.profile-img {
+    margin: 0 auto;
+    padding: 14px;
+    width: 300px;
+    background: #1c1f2b;
+    text-align: center;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 10px #ff4545, 0 0 20px #00ff99, 0 0 30px #006aff, 0 0 40px #ff0095;
+    animation: neon-border-glow 1.5s infinite alternate; /* Reduced duration for faster glow */
+}
+
+.profile-img::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    border: 3px solid transparent; 
+    box-shadow: 0 0 30px #ff4545, 0 0 40px #00ff99, 0 0 50px #006aff, 0 0 60px #ff0095;
+    animation: neon-border-spin 1.9s linear infinite; /* Reduced duration for faster spin */
+}
+
+@keyframes neon-border-glow {
+    0% {
+        box-shadow: 0 0 5px #ff4545, 0 0 10px #00ff99, 0 0 15px #006aff, 0 0 20px #ff0095;
+    }
+    100% {
+        box-shadow: 0 0 30px #ff4545, 0 0 40px #00ff99, 0 0 50px #006aff, 0 0 60px #ff0095;
+    }
+}
+
+@keyframes neon-border-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.profile-card:hover .profile-img {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
+
+.profile-card .profile-img:not(:hover) {
+    transform: translateY(5px);
+    transition: transform 0.3s ease;
+}
+
+/* ===== Skills Section ===== */
+.skills-section {
+    padding: 4rem 0;
+}
+
+/* ===== About Section ===== */
+.about-section {
+    padding: 4rem 0;
+    background: #f8f9fa;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.about-container:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
+
+.about-container:not(:hover){
+    transform: translateY(5px);   
+    transition: transform 0.3s ease;
+}
+
+    .about-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        position: relative;
+    }
+
+    .about-content {
+        text-align: justify;
+        column-count: 2;
+        column-gap: 3rem;
+        line-height: 1.8;
+    }
+
+    .about-content p {
+        margin-bottom: 1.5rem;
+        break-inside: avoid;
+    }
+
+    .about-highlight {
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        .about-content {
+            column-count: 1;
+        }
+        
+        .about-container {
+            padding: 1.5rem;
+        }
+    }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .skill-item {
+            margin-bottom: 2rem;
+        }
+
+        .skill-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .skill-bar {
+            height: 15px;
+            background: #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 8px;
+            transition: width 1.5s ease;
+        }
+
+        /* ===== Projects Section ===== */
+        .project-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .project-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .project-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        /* ===== Certificates Section ===== */
+        .certificates {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.certificates:hover{
+    transform: translateY(-5px);   
+    transition: transform 0.3s ease;
+
+}
+
+.certificates:not(:hover){
+    transform: translateY(5px);   
+    transition: transform 0.3s ease;
+}
+
+
+
+.certificates h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    text-underline-position: hidden;
+}
+
+.certificates ul {
+    list-style: none;
+    padding: 0;
+text-underline-position: hidden;
+}
+
+.certificates ul li {
+    margin: 10px 0;
+text-underline-position: hidden;
+}
+
+.certificates ul li a {
+    color: #007bff;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+    text-underline-position: hidden;
+}
+
+.certificates ul li a:hover {
+    color: #0056b3;
+}
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .go-back-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .go-back-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* ===== Animations ===== */
+        @keyframes progress-animation {
+            from { width: 0; }
+            to { width: attr(data-percent); }
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 992px) {
+            .hero-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .certificates-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .certificates-container {
+                margin: 0 50px;
+            }
+
+            .profile-img {
+                width: 250px;
+                height: 250px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .certificates-container {
+                margin: 0 20px;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-title {
+                font-size: 1.2rem;
+            }
+
+            .contact-btn {
+                padding: 0.3rem 1rem;
+            }
+        }
+
+        /* ===== Accessibility ===== */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        [aria-hidden="true"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#" class="nav-title">My Portfolio</a>
+        <button class="contact-btn" onclick="window.location.href='Contact.html'">Contact Me</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section container">
+        <div class="hero-grid">
+            <div class="info-card">
+                <h1 class="profile-name">Pran Krishno Mondal</h1>
+                <p class="profile-bio">Hello! It's Pran Krishno Mondal, AKA PKM. <br> I'm a passionate coder and an 8th-grade student who seamlessly blends academic learning with professional programming expertise.
+                   With a sharp mind for problem-solving and a dedication to innovation, I'm always striving to push boundaries and create something extraordinary.</p>
+                <p class="profile-tagline">Be <span class="about-highlight">unique</span> And think out of the <span class="about-highlight">Box</span></p>
+            </div>
+            <div class="profile-card">
+                <!-- Add profile image URL in src -->
+                <img src="Pran profile Picture in Ghibli IMG.png" alt="Profile Picture" class="profile-img">
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section class="about-section">
+      <div class="container">
+          <div class="about-container">
+              <h2 class="section-title">About Me</h2>
+              <div class="about-content">
+                  <p>
+                   I wake up early <span class="about-highlight">every morning</span>.
+                   My routine keeps me on track.
+                   Breakfast fuels me for the day ahead.
+                   And always try to balance
+                   <span class="about-highlight">Studies, Coding</span>
+                   And love my <span class="about-highlight">Family</span>
+                  </p>
+                  
+                  <p>
+                     I focus hard on my <span class="about-highlight">studies</span>.
+                     Learning <span class="about-highlight">new concepts</span> excites me often.
+                     Every subject teaches me something valuable but
+                     <span class="about-highlight">Exams</span> stress me badly but I prepare.
+                     
+                  </p>
+  
+                  <p>
+I try write code almost every day, but I can't for other things.
+<span class="about-highlight">Debugging</span> can be frustrating but rewarding.
+New projects spark my <span class="about-highlight">creativity</span> instantly.
+Usually, Logic and <span class="about-highlight">patience</span> solve most problems.
+Coding feels like <span class="about-highlight">solving</span>hard puzzles.
+  
+                  <p>
+When Not Coding or Studying,
+I enjoy <span class="about-highlight">Gaming or Youtube videos</span> sometimes.
+Music helps me <span class="about-highlight">relax and focus.</span>
+<span class="about-highlight">Good food</span> always lifts my mood.
+Hobbies keep life balanced and enjoyable.
+                  </p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+    <!-- Skills & Projects Section -->
+    <section class="skills-section container">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-grid">
+            <div class="skills-left">
+                <!-- Skill Bars -->
+                <div class="skill-item">
+                    <div class="skill-label">
+                        <span>Scratch</span>
+                        <span>100%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 100%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                  <div class="skill-label">
+                      <span>Artificial intelligece</span>
+                      <span>93%</span>
+                  </div>
+                  <div class="skill-bar">
+                      <div class="skill-progress" style="width: 93%"></div>
+                  </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-label">
+                    <span>Thunkable</span>
+                    <span>95%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 95%"></div>
+                </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-label">
+                  <span>HTML</span>
+                  <span>88%</span>
+              </div>
+              <div class="skill-bar">
+                  <div class="skill-progress" style="width: 88%"></div>
+              </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label">
+                <span>CSS</span>
+                <span>79%</span>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-progress" style="width: 79%"></div>
+            </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-label">
+              <span>JavaScript</span>
+              <span>65%</span>
+          </div>
+          <div class="skill-bar">
+              <div class="skill-progress" style="width: 65%"></div>
+          </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-label">
+            <span>Python</span>
+            <span>78%</span>
+        </div>
+        <div class="skill-bar">
+            <div class="skill-progress" style="width: 78%"></div>
+        </div>
+    </div>
+                <!-- Repeat for other skills -->
+            </div>
+            <div class="projects-right">
+                <h2 class="section-title">Top Projects</h2>
+                <!-- Project Cards -->
+                <div class="project-card">
+                    <h3 class="project-title">AI Friend Giga In Scratch</h3>
+                    <p class="project-description">A Simple AI Companion Built in Scratch</p>
+                    <button class="project-btn" onclick="window.location.href='//scratch.mit.edu/projects/996842217'">View Project</button>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">Solar System</h3>
+                    <p class="project-description">A Solar System using HTML and CSS</p>
+                    <button class="project-btn" onclick="window.location.href='Solar System.html'">View Project</button>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">Stylish Calculator</h3>
+                    <p class="project-description">A stylish Calculator using HTML CSS JS</p>
+                    <button class="project-btn" onclick="window.location.href='Calculator.html'">View Project</button>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">Binary-Decimal Converter</h3>
+                    <p class="project-description">With this python project, You can convert any Binary nimber to Decimal or <br>
+                    Decimal number to Binary</p>
+                    <button class="project-btn" onclick="window.location.href='//replit.com/@prankrishno2010/Binay-to-decimal-or-Decimal-to-binary'">View Project</button>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Star usnig Python</h3>
+                    <p class="project-description">A Simple Star using turtle library in python</p>
+                    <button class="project-btn" onclick="window.location.href='//replit.com/@prankrishno2010/Star-using-Pythoon-by-Pran#main.py'">View Project</button>
+                </div>
+
+
+
+        <!--4 Projects-->
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section class="certificates">
+      <h2 class="section-title">My Certificates</h2>
+      <ul>
+          <li><a href="Scratch Developer Certificate.pdf" target="_blank">Scratch Certificate</a></li>
+          <li><a href="AI Programmer Certificate.pdf" target="_blank">Artificial Intelligence Certificate</a></li>
+          <li><a href="Web Developer Certificate.pdf" target="_blank">Web Developer Certificate</a></li>
+          <li><a href="Basic Android Application Developer Certificate.pdf" target="_blank">Application Development</a></li>
+          <li><a href="Frontend Developer Certificate.pdf" target="_blank">FrontEnd Developer</a></li>
+          <li><a href="Python  Programmer Certificate.pdf" target="_blank">Python Programmer</a></li>
+      </ul>
+      </ul>
+  </section>
+
+
+
+    <section class="certificates">
+      <h2 class="section-title">Credit</h2>
+      <ul>
+             <li>Creator: Pran Krishno Mondal</li>
+            <li>Helped with providing Email Service: EmailJS.com</li>
+            <li>Helped with providing Domain & Hosting: Github Pages</li>
+
+      </ul>
+      </ul>
+  </section>
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <button class="go-back-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            Go Back to Top
+        </button>
+    </footer>
+
+    <script>
+        // Smooth scroll for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        // Initialize skill bars animation
+        window.addEventListener('load', () => {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            skillBars.forEach(bar => {
+                bar.style.width = bar.parentElement.previousElementSibling.lastElementChild.textContent;
+            });
+        });
+    </script>
+</body>
+</html>

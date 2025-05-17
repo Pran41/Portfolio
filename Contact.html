@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me | My Portfolio</title>
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --primary-color: #2ecc71;         /* Green theme */
+            --secondary-color: #3498db;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* ===== Reset & Base Styles ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            color: var(--dark-color);
+            background: linear-gradient(135deg, #e0e7ff 0%, #f4f4f9 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== Navigation ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #fff; /* White navbar */
+            color: var(--dark-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+            z-index: 1000;
+        }
+
+        .nav-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: var(--dark-color); /* Dark text */
+            text-decoration: none;
+        }
+
+        .home-btn {
+            background: none;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .home-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* ===== Contact Form Styles ===== */
+        .contact-section {
+            margin-top: 100px;
+            padding: 4rem 0;
+        }
+
+        .contact-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 18px;
+            box-shadow: 0 8px 24px rgba(34,34,59,0.10);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .form-input,
+        .form-textarea {
+            padding: 12px 14px;
+            font-size: 1rem;
+            border: 1px solid #cdd2e0;
+            border-radius: 8px;
+            background: #f7f7fb;
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            border: 1.5px solid var(--primary-color);
+            outline: none;
+            background: #fff;
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1.1rem;
+            background: linear-gradient(to right, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 0.9em 1.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 25px;
+            box-shadow: 0px 5px 15px rgba(76,199,217,0.12);
+            transition: var(--transition);
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0px 8px 24px rgba(76,199,217,0.18);
+            background: linear-gradient(to right, var(--secondary-color) 0%, var(--primary-color) 100%);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.97);
+        }
+
+        .svg-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.18);
+            margin-right: 0.5em;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover .svg-wrapper {
+            background-color: rgba(255, 255, 255, 0.35);
+        }
+
+        .submit-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover svg {
+            transform: rotate(45deg);
+        }
+
+        /* Confirmation Message */
+        .confirmation-message {
+            display: none;
+            margin-top: 20px;
+            padding: 14px;
+            background: #e0f7fa;
+            color: #155724;
+            border: 1px solid #b2ebf2;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .confirmation-message p {
+            color: black;
+            margin: 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 14px 0;
+            margin-top: 40px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .contact-container {
+                padding: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar {
+                padding: 1rem;
+                background: #fff; /* White navbar on mobile too */
+            }
+            .nav-title {
+                font-size: 1.2rem;
+                color: var(--dark-color);
+            }
+            .home-btn {
+                padding: 0.3rem 1rem;
+                font-size: 0.9rem;
+                border-color: var(--primary-color);
+                color: var(--primary-color);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-title">My Portfolio</a>
+        <a href="index.html" class="home-btn">Back to Home</a>
+    </nav>
+
+    <!-- Contact Form Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <h2 class="section-title">Contact Me</h2>
+            <form id="contactForm" class="contact-form" onsubmit="sendMail(); reset(); return false;">
+                <div class="form-group">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" name="name" class="form-input" placeholder="Your Name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" id="subject" name="subject" class="form-input" placeholder="Your Subject" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="Your Email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" name="message" class="form-textarea" rows="5" placeholder="Your Message" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <div class="svg-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+                        </svg>
+                    </div>
+                    <span>Send</span>
+                </button>
+            </form>
+            <div class="confirmation-message" id="confirmationMessage">
+                <p>Thank you! Your message has been sent. You will get response from us soon!<br>We will send a message on E-mail<br>Stay safe, Stay <i>Chill!!!!</i></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+
+    <!-- EmailJS Integration -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS with your public key
+        (function() {
+            emailjs.init({
+                publicKey: "h2EbipEZ9wKHuDlOr",
+            });
+        })();
+
+        // Show confirmation message
+        const contactForm = document.getElementById('contactForm');
+        const confirmationMessage = document.getElementById('confirmationMessage');
+
+        contactForm.addEventListener('submit', function(event) {
+            confirmationMessage.style.display = 'block';
+        });
+
+        // Send email function
+        function sendMail() {
+            let parms = {
+                name: document.getElementById("name").value,
+                subject: document.getElementById("subject").value,
+                email: document.getElementById("email").value,
+                message: document.getElementById("message").value
+            }
+            
+            emailjs.send("service_ec6v5h2", "template_7lt016i", parms);
+        }
+    </script>
+</body>
+</html>
