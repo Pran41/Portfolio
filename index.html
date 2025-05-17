@@ -157,28 +157,41 @@
 }
 
 .profile-img {
+    display: block;
     margin: 0 auto;
-    padding: 14px;
-    width: 300px;
+    padding: 10px;
+    width: 280px;
+    height: 350px;
     background: #1c1f2b;
-    text-align: center;
-    border-radius: 50%;
-    position: relative;
-    box-shadow: 0 0 10px #ff4545, 0 0 20px #00ff99, 0 0 30px #006aff, 0 0 40px #ff0095;
-    animation: neon-border-glow 1.5s infinite alternate; /* Reduced duration for faster glow */
+    /* Perfect vertical ellipse, always centered and responsive */
+    border-radius: 50% / 50%;   /* True ellipse */
+    object-fit: cover;
+    box-shadow: 0 4px 24px 0 #00ff99, 0 0 30px #006aff, 0 0 40px #ff0095;
+    animation: neon-border-glow 1.5s infinite alternate;
+    max-width: 90vw;
+    max-height: 80vh;
+    transition: width 0.3s, height 0.3s;
 }
 
-.profile-img::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 50%;
-    border: 3px solid transparent; 
-    box-shadow: 0 0 30px #ff4545, 0 0 40px #00ff99, 0 0 50px #006aff, 0 0 60px #ff0095;
-    animation: neon-border-spin 1.9s linear infinite; /* Reduced duration for faster spin */
+/* Responsive profile image sizing */
+@media (max-width: 992px) {
+    .profile-img {
+        width: 200px;
+        height: 250px;
+    }
+}
+@media (max-width: 768px) {
+    .profile-img {
+        width: 140px;
+        height: 180px;
+    }
+}
+@media (max-width: 576px) {
+    .profile-img {
+        width: 100px;
+        height: 130px;
+        padding: 4px;
+    }
 }
 
 @keyframes neon-border-glow {
@@ -398,19 +411,21 @@ text-underline-position: hidden;
         }
 
         .go-back-btn {
-            background: var(--primary-color);
-            color: white;
-            padding: 1rem 2rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: #fff;
+            padding: 1rem 2.2rem;
             border: none;
             border-radius: 30px;
             cursor: pointer;
             font-size: 1.1rem;
-            transition: var(--transition);
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+            transition: background 0.3s, transform 0.3s;
         }
 
         .go-back-btn:hover {
-            background: var(--secondary-color);
-            transform: translateY(-3px);
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transform: translateY(-3px) scale(1.04);
         }
 
         /* ===== Animations ===== */
@@ -421,72 +436,140 @@ text-underline-position: hidden;
 
         /* ===== Responsive Design ===== */
         @media (max-width: 992px) {
+            .container {
+                padding: 1rem;
+            }
             .hero-grid,
             .skills-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
-
-            .certificates-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .container {
-                padding: 1.5rem;
+            .projects-right {
+                margin-top: 2rem;
             }
         }
 
         @media (max-width: 768px) {
-            .certificates-container {
-                margin: 0 50px;
+            .navbar {
+                padding: 1rem;
             }
-
+            .hero-section {
+                padding: 2rem 0;
+            }
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .profile-card {
+                padding: 40px 0;
+            }
             .profile-img {
-                width: 250px;
-                height: 250px;
+                width: 180px;
+                height: 180px;
+                padding: 8px;
+                aspect-ratio: 1/1;
+                object-fit: cover;
+                max-width: 70vw;
+                max-height: 70vw;
             }
-
+            .about-container {
+                padding: 1rem;
+            }
+            .about-content {
+                column-count: 1;
+                column-gap: 0;
+            }
+            .skills-section {
+                padding: 2rem 0;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
             .section-title {
-                font-size: 2rem;
+                font-size: 1.5rem;
+            }
+            .certificates {
+                padding: 10px;
+                margin: 20px auto;
+            }
+            .project-card {
+                padding: 1rem;
             }
         }
 
         @media (max-width: 576px) {
-            .certificates-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .certificates-container {
-                margin: 0 20px;
-            }
-
             .navbar {
-                padding: 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.5rem 1rem;
             }
-
             .nav-title {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
             }
-
             .contact-btn {
                 padding: 0.3rem 1rem;
+                font-size: 0.9rem;
+            }
+            .container {
+                padding: 0.5rem;
+            }
+            .profile-card {
+                padding: 20px 0;
+            }
+            .profile-img {
+                width: 140px;
+                height: 140px;
+                padding: 6px;
+                aspect-ratio: 1/1;
+                object-fit: cover;
+                max-width: 80vw;
+                max-height: 80vw;
+            }
+            .about-content {
+                column-count: 1 !important;
+                column-gap: 0 !important;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .project-card {
+                margin-bottom: 1rem;
+                padding: 0.7rem;
+            }
+            .certificates {
+                padding: 5px;
+                margin: 10px auto;
+            }
+            .footer {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+            .go-back-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 1rem;
             }
         }
 
-        /* ===== Accessibility ===== */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-        }
-
-        [aria-hidden="true"] {
-            display: none;
-        }
+        /* Ensure profile image is always a perfect circle and responsive */
+        .profile-img {
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    width: 280px;
+    height: 350px;
+    background: #1c1f2b;
+    /* Perfect vertical ellipse, always centered and responsive */
+    border-radius: 50% / 50%;   /* True ellipse */
+    object-fit: cover;
+    box-shadow: 0 4px 24px 0 #00ff99, 0 0 30px #006aff, 0 0 40px #ff0095;
+    animation: neon-border-glow 1.5s infinite alternate;
+    max-width: 90vw;
+    max-height: 80vh;
+    transition: width 0.3s, height 0.3s;
+}
     </style>
 </head>
 <body>
@@ -650,16 +733,12 @@ Hobbies keep life balanced and enjoyable.
                 </div>
 
 
-
-
-                                 <div class="project-card">
+                 <div class="project-card">
                     <h3 class="project-title">Bengal Agro Website</h3>
-                    <p class="project-description">Full legit website for a company named Bengal Agro. And it's also published on the Internet</p>
+                    <p class="project-description">Full legit website for a company named Bengal Agro</p>
                     <button class="project-btn" onclick="window.location.href='//bengal-agro.github.io/bengal-agro/'">View Project</button>
                 </div>
 
-
-                
                 <div class="project-card">
                     <h3 class="project-title">Binary-Decimal Converter</h3>
                     <p class="project-description">With this python project, You can convert any Binary nimber to Decimal or <br>
@@ -705,8 +784,6 @@ Hobbies keep life balanced and enjoyable.
       </ul>
       </ul>
   </section>
-
-
 
 
 
