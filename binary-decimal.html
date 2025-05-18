@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary-Decimal Converter</title>
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4cc9f0;
+            --error-color: #f72585;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .converter-options {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            gap: 10px;
+        }
+
+        .option-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .option-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .option-btn:hover:not(.active) {
+            background-color: #e9ecef;
+        }
+
+        .converter-form {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .converter-form.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            font-weight: 500;
+            display: none;
+        }
+
+        .result.success {
+            display: block;
+            color: var(--secondary-color);
+            border-left: 4px solid var(--success-color);
+        }
+
+        .result.error {
+            display: block;
+            color: var(--error-color);
+            border-left: 4px solid var(--error-color);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .continue-btn {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            margin-top: 20px;
+        }
+
+        .continue-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Binary-Decimal Converter</h1>
+        
+        <div class="converter-options">
+            <button id="binaryToDecimalBtn" class="option-btn active">Binary to Decimal</button>
+            <button id="decimalToBinaryBtn" class="option-btn">Decimal to Binary</button>
+        </div>
+        
+        <div id="binaryToDecimalForm" class="converter-form active">
+            <div class="form-group">
+                <label for="binaryInput">Binary Number</label>
+                <input type="text" id="binaryInput" placeholder="Enter binary number (e.g., 1010)">
+            </div>
+            <button id="convertBinaryBtn" class="btn">Convert to Decimal</button>
+            <div id="binaryResult" class="result"></div>
+        </div>
+        
+        <div id="decimalToBinaryForm" class="converter-form">
+            <div class="form-group">
+                <label for="decimalInput">Decimal Number</label>
+                <input type="text" id="decimalInput" placeholder="Enter decimal number (e.g., 42)">
+            </div>
+            <button id="convertDecimalBtn" class="btn">Convert to Binary</button>
+            <div id="decimalResult" class="result"></div>
+        </div>
+        
+        <button id="continueBtn" class="btn continue-btn">Continue</button>
+        
+        <div class="footer">
+            Enter a value and click convert to see the result
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const binaryToDecimalBtn = document.getElementById('binaryToDecimalBtn');
+            const decimalToBinaryBtn = document.getElementById('decimalToBinaryBtn');
+            const binaryToDecimalForm = document.getElementById('binaryToDecimalForm');
+            const decimalToBinaryForm = document.getElementById('decimalToBinaryForm');
+            const convertBinaryBtn = document.getElementById('convertBinaryBtn');
+            const convertDecimalBtn = document.getElementById('convertDecimalBtn');
+            const binaryInput = document.getElementById('binaryInput');
+            const decimalInput = document.getElementById('decimalInput');
+            const binaryResult = document.getElementById('binaryResult');
+            const decimalResult = document.getElementById('decimalResult');
+            const continueBtn = document.getElementById('continueBtn');
+            
+            // Switch between conversion types
+            binaryToDecimalBtn.addEventListener('click', function() {
+                binaryToDecimalBtn.classList.add('active');
+                decimalToBinaryBtn.classList.remove('active');
+                binaryToDecimalForm.classList.add('active');
+                decimalToBinaryForm.classList.remove('active');
+                clearResults();
+            });
+            
+            decimalToBinaryBtn.addEventListener('click', function() {
+                decimalToBinaryBtn.classList.add('active');
+                binaryToDecimalBtn.classList.remove('active');
+                decimalToBinaryForm.classList.add('active');
+                binaryToDecimalForm.classList.remove('active');
+                clearResults();
+            });
+            
+            // Conversion functions
+            function binaryToDecimal(binary) {
+                try {
+                    // Validate binary input
+                    if (!/^[01]+$/.test(binary)) {
+                        throw new Error('Invalid binary number');
+                    }
+                    const decimal = parseInt(binary, 2);
+                    return decimal.toString();
+                } catch (error) {
+                    return error.message;
+                }
+            }
+            
+            function decimalToBinary(decimal) {
+                try {
+                    const num = parseInt(decimal);
+                    if (isNaN(num)) {
+                        throw new Error('Invalid decimal number');
+                    }
+                    if (num < 0) {
+                        throw new Error('Please enter a positive number');
+                    }
+                    return num.toString(2);
+                } catch (error) {
+                    return error.message;
+                }
+            }
+            
+            // Event listeners for conversion buttons
+            convertBinaryBtn.addEventListener('click', function() {
+                const binary = binaryInput.value.trim();
+                const result = binaryToDecimal(binary);
+                displayResult(binaryResult, result, !isNaN(result));
+            });
+            
+            convertDecimalBtn.addEventListener('click', function() {
+                const decimal = decimalInput.value.trim();
+                const result = decimalToBinary(decimal);
+                displayResult(decimalResult, result, !isNaN(parseInt(decimal)) && decimal >= 0);
+            });
+            
+            // Helper functions
+            function displayResult(element, result, isSuccess) {
+                element.textContent = isSuccess ? 
+                    (element === binaryResult ? `Decimal equivalent: ${result}` : `Binary equivalent: ${result}`) : 
+                    result;
+                element.className = 'result ' + (isSuccess ? 'success' : 'error');
+            }
+            
+            function clearResults() {
+                binaryResult.className = 'result';
+                decimalResult.className = 'result';
+                binaryInput.value = '';
+                decimalInput.value = '';
+            }
+            
+            // Continue button functionality
+            continueBtn.addEventListener('click', function() {
+                clearResults();
+                if (binaryToDecimalForm.classList.contains('active')) {
+                    binaryInput.focus();
+                } else {
+                    decimalInput.focus();
+                }
+            });
+            
+            // Allow only binary digits in binary input
+            binaryInput.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^01]/g, '');
+            });
+            
+            // Allow only numbers in decimal input
+            decimalInput.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        });
+    </script>
+</body>
+</html>
